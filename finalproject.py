@@ -1,4 +1,6 @@
 import csv
+import sys
+import os
 
 class Thing:
     def __init__(self, name, type_, color, weight, age):
@@ -130,6 +132,12 @@ class ThingManager:
                 self.save_data()
                 return
         print("No such thing found.")
+    # def exit_terminal(self):
+    #         print("Saving data before exiting...")
+    #         self.save_data()
+    #         print("Goodbye!")
+    #         os._exit(0)
+
 
 
 def main():
@@ -174,14 +182,20 @@ def main():
             name = input("Enter name to update: ")
             manager.update_thing(name)
         elif choice == '8':
+            print("Saving data before exiting...")
             manager.save_data()
-            print("Exiting the program. Data saved.")
+            print("Goodbye!")
+            os._exit(0)
+            
+            
+
         # elif choice == '9':
         #     type_ = input("Enter color to search: ")
         #     manager.search_thing('color', color)
         #     break
         else:
             print("Invalid choice. Please try again.")
+    
 
 
 if __name__ == "__main__":
