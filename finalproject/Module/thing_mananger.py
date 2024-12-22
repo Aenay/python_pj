@@ -51,7 +51,9 @@ class ThingManager:
                 print(thing)
 
     def display_count(self):
-        print(f"Total number of things: {len(self.things)}")
+        count = len(self.things)
+        print(f"Total number of things: {count + 1}")
+        return count
 
     def get_valid_float(self, value, field_name):
         """Helper function to validate float values (e.g., weight)"""
@@ -87,12 +89,57 @@ class ThingManager:
         # Save data to CSV if all inputs are valid
         self.save_data()
 
+    def update_thing(self, name):
+        thing_to_update = next((thing for thing in self.things if thing.name.lower() == name.lower()), None)
+
+        if not thing_to_update:
+            print(f"No thing found with the name '{name}'.")
+            return
+
+        print(f"Found: {thing_to_update}")
+
+        # Prompt for new values
+        new_name = input("Enter new name (or leave blank to keep current): ")
+        type_ = input("Enter new type (or leave blank to keep current): ")
+        color = input("Enter new color (or leave blank to keep current): ")
+        weight = input("Enter new weight (or leave blank to keep current): ")
+        age = input("Enter new age (or leave blank to keep current): ")
+
+        # Update fields if new values are provided
+        if new_name:
+            thing_to_update.name = new_name
+        if type_:
+            thing_to_update.type = type_
+        if color:
+            thing_to_update.color = color
+        if weight:
+            thing_to_update.weight = self.validate_float(weight, "Weight") if weight else thing_to_update.weight
+        if age:
+            thing_to_update.age = self.validate_int(age, "Age") if age else thing_to_update.age
+
+        print(f"Updated: {thing_to_update}")
+        self.save_data()
+
+    def validate_float(self, value, field_name):
+        try:
+            return float(value)
+        except ValueError:
+            raise ValueError(f"Invalid value for {field_name}. Please enter a valid number.")
+
+    def validate_int(self, value, field_name):
+        try:
+            return int(value)
+        except ValueError:
+            raise ValueError(f"Invalid value for {field_name}. Please enter a valid integer.")
+
+
+
     def search_thing(self, search_type, search_value):
         # Validate if the search_type is a valid attribute of Thing
         valid_attributes = ['name', 'type', 'color', 'weight', 'age']
         if search_type not in valid_attributes:
             print(f"Invalid search field: {search_type}. Valid fields are: {', '.join(valid_attributes)}")
-            return
+            return  
 
         # Clean up the search_value
         search_value = search_value.strip().lower()

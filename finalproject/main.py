@@ -52,13 +52,7 @@ def main():
             print("Saving data before exiting...")
             print("Goodbye!")
             exit()
-            
-            
 
-        # elif choice == '9':
-        #     type_ = input("Enter color to search: ")
-        #     manager.search_thing('color', color)
-        #     break
         else:
             print("Invalid choice. Please try again.")
     
