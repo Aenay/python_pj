@@ -115,7 +115,7 @@ class ThingManager:
         initial_len = len(self.things)
         
         # Filter out the thing with the given name (case-insensitive)
-        self.things = [thing for thing in self.things if thing.name.lower() != name.lower()]
+        self.things = [thing for thing in self.things if thing.name.lower().strip() != name.lower().strip()]
         
         # Check if anything was deleted
         if len(self.things) < initial_len:

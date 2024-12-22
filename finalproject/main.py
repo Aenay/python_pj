@@ -2,12 +2,12 @@ import csv
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from .thing_mananger import ThingManager
+from Module.thing_mananger import ThingManager
 
 
 def main():
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) 
-    filename = os.path.join(base_dir, 'Data', 'things.csv')
+    filename = os.path.join(base_dir, 'finalproject', 'Data', 'things.csv')
     
     manager = ThingManager(filename)
     
@@ -50,9 +50,8 @@ def main():
             manager.update_thing(name)
         elif choice == '8':
             print("Saving data before exiting...")
-            manager.save_data()
             print("Goodbye!")
-            os._exit(0)
+            exit()
             
             
 
